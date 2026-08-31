@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<Layout title="Blogs — Khaled Eissa" description="Writing on AI engineering, systems, and applied research.">
+  <section class="wrap header">
+    <p class="eyebrow">Writing</p>
+    <h1>Blogs</h1>
+  </section>
+
+  <section class="wrap list">
+    <ul class="stack">
+      {
+        posts.map((post) => (
+          <li class="item">
+            <a class="item-title link-underline" href={`/blogs/${post.id}`}>
+              {post.data.title}
+            </a>
+            <p class="item-meta">{dateFmt.format(post.data.date)}</p>
+            <p class="item-desc">{post.data.excerpt}</p>
+          </li>
+        ))
+      }
+      {
+        posts.length === 0 && (
+          <li class="item">
+            <p class="item-desc">No posts yet — check back soon.</p>
+          </li>
+        )
+      }
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .header {
+    padding: 3.5rem 1.5rem 2.5rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    margin-top: 0.5rem;
+  }
+
+  .list {
+    padding-bottom: 3.5rem;
+  }
+
+  .stack {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  .item {
+    padding-bottom: 2.2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .item-title {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: var(--text);
+  }
+
+  .item-meta {
+    margin: 0.4rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  .item-desc {
+    margin: 0.6rem 0 0;
+    font-size: 0.95rem;
+  }
+</style>
