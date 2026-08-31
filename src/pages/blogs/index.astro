@@ -21,7 +21,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
         posts.map((post) => (
           <li class="item">
             <a class="item-title link-underline" href={`/blogs/${post.id}`}>
-              {post.data.title}
+                {/* @ts-ignore */}
+                <span transition:name={`post-title-${post.id}`}>{post.data.title}</span>
             </a>
             <p class="item-meta">{dateFmt.format(post.data.date)}</p>
             <p class="item-desc">{post.data.excerpt}</p>

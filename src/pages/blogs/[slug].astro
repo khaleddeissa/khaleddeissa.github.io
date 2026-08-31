@@ -22,7 +22,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     <a href="/blogs" class="back link-underline">&larr; All blogs</a>
 
     <header class="post-header">
-      <h1>{post.data.title}</h1>
+      <h1 transition:name={`post-title-${post.id}`}>{post.data.title}</h1>
       <p class="post-date">{dateFmt.format(post.data.date)}</p>
     </header>
 
