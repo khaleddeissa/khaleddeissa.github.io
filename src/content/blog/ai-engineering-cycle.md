@@ -138,7 +138,7 @@ The point isn't that every AI application needs a large governance process. The 
 
 When I put all of this together, I don't see AI engineering as a straight line from requirements to deployment. I see it more like a loop:
 
-Ground the problem → Define requirements → Define success → Evaluate → Design → Build → Deploy → Monitor → Learn → Refine → Repeat
+Ground the problem → Define requirements → Define success & evaluation criteria → Design → Build → Evaluate → Deploy → Monitor → Learn → Refine → Repeat
 
 And the arrows should eventually come back to the beginning. Production teaches us something. Evaluation teaches us something. Users teach us something. New requirements teach us something. And those lessons should feed back into the next version of the system.
 
