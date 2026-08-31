@@ -19,7 +19,7 @@ export const links: ProfileLink[] = [
   },
   {
     label: "GitHub",
-    url: "https://github.com/Khaledayman9",
+    url: "https://github.com/khaleddeissa",
     icon: "github",
   },
   {
