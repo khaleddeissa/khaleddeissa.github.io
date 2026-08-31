@@ -112,7 +112,8 @@ img {
 }
 
 .section {
-  padding: 3.25rem 0;
+  padding-top: 3.25rem;
+  padding-bottom: 3.25rem;
   border-top: 1px solid var(--line);
 }
 

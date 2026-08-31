@@ -61,6 +61,41 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
   </article>
 </Layout>
 
+<script>
+  function setupLightbox() {
+    const post = document.querySelector('.post');
+    if (!post) return;
+
+    post.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('click', () => {
+        const overlay = document.createElement('div');
+        overlay.className = 'lightbox-overlay';
+
+        const full = document.createElement('img');
+        full.src = img.currentSrc || img.src;
+        full.alt = img.alt;
+
+        overlay.appendChild(full);
+        overlay.addEventListener('click', () => overlay.remove());
+
+        document.addEventListener(
+          'keydown',
+          function onEsc(event) {
+            if (event.key === 'Escape') {
+              overlay.remove();
+              document.removeEventListener('keydown', onEsc);
+            }
+          }
+        );
+
+        document.body.appendChild(overlay);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupLightbox);
+</script>
+
 <style>
   .post {
     padding: 3rem 1.5rem 5rem;
@@ -132,9 +167,27 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     color: var(--text-muted);
   }
 
+  .cover,
   .prose :global(img) {
+    cursor: zoom-in;
+  }
+
+  :global(.lightbox-overlay) {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 9, 10, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 100;
+    cursor: zoom-out;
+  }
+
+  :global(.lightbox-overlay img) {
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 4px;
-    margin: 1.5em 0;
   }
 
   .refs {
