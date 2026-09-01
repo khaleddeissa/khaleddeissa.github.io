@@ -8,7 +8,10 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
-const previewPosts = posts.slice(0, 3);
+const initialProjectCount = 3;
+const remainingProjectCount = Math.max(projects.length - initialProjectCount, 0);
+const initialBlogCount = 3;
+const remainingBlogCount = Math.max(posts.length - initialBlogCount, 0);
 
 const iconPaths: Record<string, string> = {
   linkedin:
@@ -51,12 +54,12 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     </ul>
   </section>
 
-  <section class="wrap section" id="projects">
+  <section class="wrap section" id="projects" data-expandable-section>
     <h2 class="section-title">Projects</h2>
-    <ul class="stack">
+    <ul class="stack" id="projects-list">
       {
-        projects.map((p) => (
-          <li class="item">
+        projects.map((p, index) => (
+          <li class="item" data-expandable-extra={index >= initialProjectCount ? '' : undefined} hidden={index >= initialProjectCount}>
             <a
               class="item-title link-underline"
               href={p.url}
@@ -78,17 +81,35 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
         ))
       }
     </ul>
+    {
+      remainingProjectCount > 0 && (
+        <button
+          class="content-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="projects-list"
+          data-expandable-toggle
+          data-collapsed-label={`View ${remainingProjectCount} more project${remainingProjectCount === 1 ? '' : 's'}`}
+          data-expanded-label="Show fewer projects"
+        >
+          <span>{`View ${remainingProjectCount} more project${remainingProjectCount === 1 ? '' : 's'}`}</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m4 6 4 4 4-4" />
+          </svg>
+        </button>
+      )
+    }
   </section>
 
-  <section class="wrap section" id="blogs">
+  <section class="wrap section" id="blogs" data-expandable-section>
     <div class="section-head">
       <h2 class="section-title">Blogs</h2>
       <a href="/blogs" class="see-all link-underline">All blogs</a>
     </div>
-    <ul class="stack">
+    <ul class="stack" id="blogs-list">
       {
-        previewPosts.map((post) => (
-          <li class="item">
+        posts.map((post, index) => (
+          <li class="item" data-expandable-extra={index >= initialBlogCount ? '' : undefined} hidden={index >= initialBlogCount}>
             <a class="item-title link-underline" href={`/blogs/${post.id}`}>
               <span transition:name={`post-title-${post.id}`}>{post.data.title}</span>
             </a>
@@ -98,13 +119,31 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
         ))
       }
       {
-        previewPosts.length === 0 && (
+        posts.length === 0 && (
           <li class="item">
             <p class="item-desc">No posts yet — check back soon.</p>
           </li>
         )
       }
     </ul>
+    {
+      remainingBlogCount > 0 && (
+        <button
+          class="content-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="blogs-list"
+          data-expandable-toggle
+          data-collapsed-label={`View ${remainingBlogCount} more blog post${remainingBlogCount === 1 ? '' : 's'}`}
+          data-expanded-label="Show fewer blog posts"
+        >
+          <span>{`View ${remainingBlogCount} more blog post${remainingBlogCount === 1 ? '' : 's'}`}</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="m4 6 4 4 4-4" />
+          </svg>
+        </button>
+      )
+    }
   </section>
 
   <section class="wrap section" id="publications">
@@ -131,6 +170,34 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     </ul>
   </section>
 </Layout>
+
+<script>
+  function setupExpandableToggles() {
+    document.querySelectorAll<HTMLButtonElement>('[data-expandable-toggle]').forEach((toggle) => {
+      const section = toggle.closest<HTMLElement>('[data-expandable-section]');
+      const label = toggle.querySelector('span');
+      if (!section || !label) return;
+
+      const extraItems = section.querySelectorAll<HTMLElement>('[data-expandable-extra]');
+
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        const nextExpanded = !expanded;
+
+        extraItems.forEach((item) => {
+          item.hidden = !nextExpanded;
+        });
+
+        toggle.setAttribute('aria-expanded', String(nextExpanded));
+        label.textContent = nextExpanded
+          ? toggle.dataset.expandedLabel ?? 'Show fewer items'
+          : toggle.dataset.collapsedLabel ?? 'View more items';
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', setupExpandableToggles);
+</script>
 
 <style>
   .hero {
@@ -234,5 +301,53 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
 
   .item-meta.standalone {
     margin-top: 0.3rem;
+  }
+
+  .content-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.9rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .content-toggle span {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .content-toggle svg {
+    width: 1rem;
+    height: 1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.5;
+    transition: transform 0.2s ease;
+  }
+
+  .content-toggle:hover span,
+  .content-toggle:focus-visible span {
+    text-decoration-color: currentColor;
+  }
+
+  .content-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  .content-toggle[aria-expanded='true'] svg {
+    transform: rotate(180deg);
   }
 </style>
