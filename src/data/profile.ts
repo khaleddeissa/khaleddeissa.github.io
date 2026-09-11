@@ -6,7 +6,7 @@ export interface ProfileLink {
 
 export const profile = {
   name: "Khaled Eissa",
-  title: "AI/Software Engineer",
+  title: "Software/AI Engineer",
   summary:
     "Software Engineer with 2+ years of experience in AI, backend development, and cloud/MLOps, focused on building scalable and production-ready solutions, with a commitment to continuous learning and growth.",
 };
