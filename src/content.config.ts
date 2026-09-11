@@ -10,6 +10,8 @@ const blog = defineCollection({
       excerpt: z.string(),
       coverImage: image().optional(),
       coverImageAlt: z.string().optional(),
+      logo: z.string().url().optional(),
+      logoAlt: z.string().optional(),
       references: z
         .array(
           z.object({

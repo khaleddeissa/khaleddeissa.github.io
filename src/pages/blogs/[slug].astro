@@ -22,7 +22,19 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     <a href="/blogs" class="back link-underline">&larr; All blogs</a>
 
     <header class="post-header">
-      <h1 transition:name={`post-title-${post.id}`}>{post.data.title}</h1>
+      <h1 transition:name={`post-title-${post.id}`}>
+        {
+          post.data.logo && (
+            <img
+              class="title-logo"
+              src={post.data.logo}
+              alt=""
+              aria-hidden="true"
+            />
+          )
+        }
+        {post.data.title}
+      </h1>
       <p class="post-date">{dateFmt.format(post.data.date)}</p>
     </header>
 
@@ -66,7 +78,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     const post = document.querySelector('.post');
     if (!post) return;
 
-    post.querySelectorAll('img').forEach((img) => {
+    post.querySelectorAll('.prose img, .cover').forEach((img) => {
       img.addEventListener('click', () => {
         const overlay = document.createElement('div');
         overlay.className = 'lightbox-overlay';
@@ -110,6 +122,20 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
 
   .post-header h1 {
     font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+  }
+
+  .title-logo {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.12em;
+    margin-right: 0.32em;
+    padding: 0.16em;
+    box-sizing: border-box;
+    border-radius: 0.3em;
+    background: linear-gradient(155deg, #f4ecdb, #e6dcc4);
+    border: 1px solid rgba(227, 163, 75, 0.4);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
   }
 
   .post-date {

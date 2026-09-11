@@ -1,0 +1,39 @@
+<svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" font-family="'Space Grotesk','Inter',system-ui,sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#93a4aa"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="680" height="460" fill="#0e1416"/>
+
+  <!-- Terraform validation -->
+  <rect x="140" y="24" width="400" height="90" rx="6" fill="#141c1f" stroke="rgba(232,238,240,0.16)"/>
+  <text x="340" y="52" text-anchor="middle" fill="#e7edef" font-size="15" font-weight="600">Terraform validation</text>
+  <text x="340" y="76" text-anchor="middle" fill="#93a4aa" font-size="13" font-style="italic">"Is this syntactically and semantically valid?"</text>
+  <text x="340" y="98" text-anchor="middle" fill="#62747a" font-size="11">terraform validate / terraform plan</text>
+
+  <line x1="340" y1="114" x2="340" y2="150" stroke="#93a4aa" stroke-width="1.4" marker-end="url(#arrow2)"/>
+
+  <rect x="255" y="150" width="170" height="42" rx="21" fill="#1a2226" stroke="rgba(232,238,240,0.16)"/>
+  <text x="340" y="176" text-anchor="middle" fill="#e7edef" font-size="13" font-weight="600">Valid plan</text>
+
+  <line x1="340" y1="192" x2="340" y2="228" stroke="#93a4aa" stroke-width="1.4" marker-end="url(#arrow2)"/>
+
+  <!-- infra-contract -->
+  <rect x="140" y="228" width="400" height="90" rx="6" fill="#1a2226" stroke="#b9843e" stroke-width="1.4"/>
+  <text x="340" y="256" text-anchor="middle" fill="#e3a34b" font-size="15" font-weight="600">infra-contract</text>
+  <text x="340" y="280" text-anchor="middle" fill="#93a4aa" font-size="13" font-style="italic">"Is this allowed by our contract?"</text>
+  <text x="340" y="302" text-anchor="middle" fill="#62747a" font-size="11">security, architecture, reliability, agent policy</text>
+
+  <line x1="340" y1="318" x2="340" y2="354" stroke="#93a4aa" stroke-width="1.4" marker-end="url(#arrow2)"/>
+
+  <!-- outcomes -->
+  <rect x="150" y="354" width="170" height="56" rx="6" fill="#141c1f" stroke="#3f8f5f"/>
+  <text x="235" y="388" text-anchor="middle" fill="#7fd39a" font-size="14" font-weight="600">Accept</text>
+
+  <rect x="360" y="354" width="170" height="56" rx="6" fill="#141c1f" stroke="#a4453f"/>
+  <text x="445" y="388" text-anchor="middle" fill="#e08a84" font-size="14" font-weight="600">Reject</text>
+
+  <text x="340" y="440" text-anchor="middle" fill="#62747a" font-size="11.5">A valid plan is not automatically an acceptable one.</text>
+</svg>
