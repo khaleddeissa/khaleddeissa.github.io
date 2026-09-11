@@ -162,7 +162,7 @@ print(result.to_dict())
 
 ```yaml
 # GitHub Actions
-- uses: khaleddeissa/infra-contract@v0.1.2
+- uses: khaleddeissa/infra-contract@v0.1.3
   with:
     plan: tfplan.json
     fail-on: high
@@ -172,7 +172,7 @@ print(result.to_dict())
 ```bash
 # Docker
 docker run --rm -v "$PWD:/workspace:ro" -w /workspace \
-  ghcr.io/khaleddeissa/infra-contract:v0.1.2 \
+  ghcr.io/khaleddeissa/infra-contract:v0.1.3 \
   check --contract infra-contract.yaml .
 ```
 
@@ -259,7 +259,7 @@ It's worth reading the generated contract before trusting it as an actual bounda
 If you'd rather not install anything locally, the same CLI is published as a container image on GHCR, built as a multi-stage image that runs as a non-root user and is intentionally CLI-only, with no HTTP port to manage:
 
 ```bash
-docker pull ghcr.io/khaleddeissa/infra-contract:v0.1.2
+docker pull ghcr.io/khaleddeissa/infra-contract:v0.1.3
 ```
 
 See the [package on GHCR](https://github.com/khaleddeissa/infra-contract/pkgs/container/infra-contract) for available tags. And if CI is where you'd rather enforce this, the action is published on the [GitHub Marketplace](https://github.com/marketplace/actions/infrastructure-contract) — pin it to a released tag or commit SHA rather than a floating branch:
@@ -276,14 +276,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: khaleddeissa/infra-contract@v0.1.2
+      - uses: khaleddeissa/infra-contract@v0.1.3
         with:
           plan: tfplan.json
           fail-on: high
           comment-on-pr: true
 ```
 
-The project is currently at **v0.1.2**, its latest stable release, with v0.1.0 and v0.1.1 as earlier tags along the way. The repository's `examples/` directory has complete starting points for a basic Terraform setup, a production service, a RAG application, the Python API, the GitHub Action, Docker, an MCP client, human-approval gating, and the `explain`/`fix` workflow.
+The project is currently at **v0.1.3**, its latest stable release, with v0.1.0 and v0.1.1 as earlier tags along the way. The repository's `examples/` directory has complete starting points for a basic Terraform setup, a production service, a RAG application, the Python API, the GitHub Action, Docker, an MCP client, human-approval gating, and the `explain`/`fix` workflow.
 
 ## What it deliberately doesn't do
 
