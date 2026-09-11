@@ -105,7 +105,49 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     });
   }
 
+  function setupCodeBlocks() {
+    const post = document.querySelector('.post');
+    if (!post) return;
+
+    post.querySelectorAll('.prose pre.astro-code').forEach((pre) => {
+      if (pre.dataset.copyReady === 'true') return;
+      pre.dataset.copyReady = 'true';
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'code-copy';
+      button.setAttribute('aria-label', 'Copy code to clipboard');
+
+      const label = document.createElement('span');
+      label.textContent = 'Copy';
+      button.appendChild(label);
+
+      let resetTimer;
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        const text = code ? code.innerText : pre.innerText;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.classList.add('is-copied');
+          label.textContent = 'Copied';
+        } catch (err) {
+          label.textContent = 'Press ⌘/Ctrl+C';
+        }
+
+        window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          button.classList.remove('is-copied');
+          label.textContent = 'Copy';
+        }, 1800);
+      });
+
+      pre.appendChild(button);
+    });
+  }
+
   document.addEventListener('astro:page-load', setupLightbox);
+  document.addEventListener('astro:page-load', setupCodeBlocks);
 </script>
 
 <style>
@@ -184,6 +226,122 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
   .prose :global(ol) {
     color: var(--text);
     padding-left: 1.3em;
+  }
+
+  .prose :global(pre.astro-code) {
+    position: relative;
+    margin: 1.85em 0;
+    padding: 2.15rem 1.3rem 1.15rem;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background-color: var(--bg-elevated) !important;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.03) inset,
+      0 10px 24px rgba(0, 0, 0, 0.28);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prose :global(pre.astro-code)::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem 1.3rem 0.35rem;
+    font-family: var(--font-display), system-ui, sans-serif;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .prose :global(pre.astro-code code) {
+    display: block;
+    width: max-content;
+    min-width: 100%;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.86rem;
+    line-height: 1.65;
+  }
+
+  .prose :global(pre.astro-code)::-webkit-scrollbar {
+    height: 7px;
+  }
+
+  .prose :global(pre.astro-code)::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .prose :global(pre.astro-code)::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 999px;
+  }
+
+  .prose :global(.code-copy) {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.6rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    padding: 0.32em 0.7em;
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--text-muted);
+    background: rgba(232, 238, 240, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .prose :global(pre.astro-code:hover .code-copy),
+  .prose :global(pre.astro-code:focus-within .code-copy),
+  .prose :global(.code-copy:focus-visible) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .prose :global(.code-copy:hover) {
+    color: var(--text);
+    border-color: var(--line-strong);
+    background: rgba(232, 238, 240, 0.1);
+  }
+
+  .prose :global(.code-copy.is-copied) {
+    color: var(--accent);
+    border-color: var(--accent-dim);
+    background: var(--accent-wash);
+  }
+
+  @media (hover: none) {
+    .prose :global(.code-copy) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .prose :global(code):not(pre code) {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.87em;
+    padding: 0.15em 0.42em;
+    border-radius: 4px;
+    background: rgba(232, 238, 240, 0.08);
+    border: 1px solid var(--line);
+    color: var(--accent);
+    white-space: break-spaces;
   }
 
   .prose :global(blockquote) {
