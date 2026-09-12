@@ -31,19 +31,17 @@ const {
         preserveAspectRatio="xMidYMid slice"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path class="trace-base" d="M -5 8 L 15 8 L 22 14 L 45 14 L 52 20 L 105 20" />
-        <path class="trace-base" d="M -5 26 L 10 26 L 16 32 L 40 32 L 46 38 L 70 38 L 76 44 L 105 44" />
-        <path class="trace-base" d="M -5 50 L 20 50 L 26 40 L 50 40 L 56 30 L 80 30 L 86 20 L 105 20" />
-        <path class="trace-base" d="M 20 -5 L 20 10 L 30 16 L 30 35 L 40 41 L 40 65" />
-        <path class="trace-base" d="M 80 65 L 80 48 L 70 42 L 70 22 L 60 16 L 60 -5" />
-        <path class="trace-base" d="M -5 54 L 30 54 L 36 58 L 60 58 L 66 54 L 105 54" />
+        <path class="trace-base" d="M -5 8 L 15 8 L 22 14 L 30 14" />
+        <path class="trace-base" d="M -5 26 L 10 26 L 16 32 L 28 32" />
+        <path class="trace-base" d="M 10 -5 L 10 15 L 18 22 L 18 40 L 26 48 L 26 65" />
+        <path class="trace-base" d="M 70 20 L 78 20 L 84 14 L 105 14" />
+        <path class="trace-base" d="M 72 44 L 82 44 L 88 50 L 105 50" />
+        <path class="trace-base" d="M 90 65 L 90 45 L 82 38 L 82 20 L 74 12 L 74 -5" />
 
-        <path class="trace-pulse trace-pulse--1" d="M -5 8 L 15 8 L 22 14 L 45 14 L 52 20 L 105 20" />
-        <path class="trace-pulse trace-pulse--2" d="M -5 26 L 10 26 L 16 32 L 40 32 L 46 38 L 70 38 L 76 44 L 105 44" />
-        <path class="trace-pulse trace-pulse--3" d="M -5 50 L 20 50 L 26 40 L 50 40 L 56 30 L 80 30 L 86 20 L 105 20" />
-        <path class="trace-pulse trace-pulse--4" d="M 20 -5 L 20 10 L 30 16 L 30 35 L 40 41 L 40 65" />
-        <path class="trace-pulse trace-pulse--5" d="M 80 65 L 80 48 L 70 42 L 70 22 L 60 16 L 60 -5" />
-        <path class="trace-pulse trace-pulse--6" d="M -5 54 L 30 54 L 36 58 L 60 58 L 66 54 L 105 54" />
+        <path class="trace-pulse trace-pulse--1" d="M -5 8 L 15 8 L 22 14 L 30 14" />
+        <path class="trace-pulse trace-pulse--2" d="M 70 20 L 78 20 L 84 14 L 105 14" />
+        <path class="trace-pulse trace-pulse--3" d="M 10 -5 L 10 15 L 18 22 L 18 40 L 26 48 L 26 65" />
+        <path class="trace-pulse trace-pulse--4" d="M 90 65 L 90 45 L 82 38 L 82 20 L 74 12 L 74 -5" />
       </svg>
     </div>
 
@@ -77,31 +75,8 @@ const {
         z-index: -1;
         overflow: hidden;
         pointer-events: none;
+        contain: layout style paint;
         background: radial-gradient(ellipse 90% 70% at 50% 0%, var(--bg-elevated), var(--bg) 70%);
-        /* Keep the traces lively in the side margins, but fade them out
-           completely behind the readable content column (same width as
-           .wrap) so they never sit under text or images and compete for
-           attention. On narrow viewports the column fills the screen, so
-           this naturally hides the animation there entirely. */
-        --trace-fade: 4rem;
-        mask-image: linear-gradient(
-          to right,
-          black 0,
-          black calc(50% - var(--content-width) / 2 - var(--trace-fade)),
-          transparent calc(50% - var(--content-width) / 2),
-          transparent calc(50% + var(--content-width) / 2),
-          black calc(50% + var(--content-width) / 2 + var(--trace-fade)),
-          black 100%
-        );
-        -webkit-mask-image: linear-gradient(
-          to right,
-          black 0,
-          black calc(50% - var(--content-width) / 2 - var(--trace-fade)),
-          transparent calc(50% - var(--content-width) / 2),
-          transparent calc(50% + var(--content-width) / 2),
-          black calc(50% + var(--content-width) / 2 + var(--trace-fade)),
-          black 100%
-        );
       }
 
       .bg-traces {
@@ -118,33 +93,41 @@ const {
         vector-effect: non-scaling-stroke;
       }
 
-      .trace-pulse {
+            .trace-pulse {
         fill: none;
         stroke: var(--accent);
-        stroke-width: 1.6;
+        stroke-width: 1.8;
         stroke-linecap: round;
         vector-effect: non-scaling-stroke;
-        opacity: 0.85;
-        filter: drop-shadow(0 0 3px var(--accent));
-      }
-
-      .trace-pulse--2,
-      .trace-pulse--4,
-      .trace-pulse--6 {
-        stroke: #4f8a8f;
-        filter: drop-shadow(0 0 3px #4f8a8f);
-      }
-
-      .trace-pulse--1 {
-        stroke-dasharray: 12 300;
-        animation: trace-flow-a 7s linear infinite;
-        animation-delay: -1s;
+        opacity: 0.9;
+        stroke-dasharray: 10 150;
+        animation: trace-flow 7s linear infinite;
       }
 
       .trace-pulse--2 {
-        stroke-dasharray: 10 340;
-        animation: trace-flow-b 9s linear infinite;
-        animation-delay: -3.5s;
+        animation-duration: 8.5s;
+        animation-delay: -3s;
+      }
+
+      .trace-pulse--3 {
+        animation-duration: 6.5s;
+        animation-delay: -2s;
+      }
+
+      .trace-pulse--4 {
+        animation-duration: 9s;
+        animation-delay: -4.5s;
+      }
+
+      @keyframes trace-flow {
+        to {
+          stroke-dashoffset: -160;
+        }
+      }
+
+      .trace-pulse--2,
+      .trace-pulse--4 {
+        stroke: #4f8a8f;
       }
 
       .trace-pulse--3 {
@@ -153,51 +136,15 @@ const {
         animation-delay: -5s;
       }
 
-      .trace-pulse--4 {
-        stroke-dasharray: 9 240;
-        animation: trace-flow-d 6s linear infinite;
-        animation-delay: -2s;
-      }
-
       .trace-pulse--5 {
         stroke-dasharray: 9 240;
         animation: trace-flow-d 6.5s linear infinite;
         animation-delay: -4s;
       }
 
-      .trace-pulse--6 {
-        stroke-dasharray: 11 300;
-        animation: trace-flow-e 7.5s linear infinite;
-        animation-delay: -0.5s;
-      }
-
-      @keyframes trace-flow-a {
-        to {
-          stroke-dashoffset: -312;
-        }
-      }
-
-      @keyframes trace-flow-b {
-        to {
-          stroke-dashoffset: -350;
-        }
-      }
-
       @keyframes trace-flow-c {
         to {
           stroke-dashoffset: -374;
-        }
-      }
-
-      @keyframes trace-flow-d {
-        to {
-          stroke-dashoffset: -249;
-        }
-      }
-
-      @keyframes trace-flow-e {
-        to {
-          stroke-dashoffset: -311;
         }
       }
 
