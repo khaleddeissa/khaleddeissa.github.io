@@ -40,9 +40,7 @@ const {
 
         <path class="trace-pulse trace-pulse--1" d="M -5 8 L 15 8 L 22 14 L 45 14 L 52 20 L 105 20" />
         <path class="trace-pulse trace-pulse--2" d="M -5 26 L 10 26 L 16 32 L 40 32 L 46 38 L 70 38 L 76 44 L 105 44" />
-        <path class="trace-pulse trace-pulse--3" d="M -5 50 L 20 50 L 26 40 L 50 40 L 56 30 L 80 30 L 86 20 L 105 20" />
         <path class="trace-pulse trace-pulse--4" d="M 20 -5 L 20 10 L 30 16 L 30 35 L 40 41 L 40 65" />
-        <path class="trace-pulse trace-pulse--5" d="M 80 65 L 80 48 L 70 42 L 70 22 L 60 16 L 60 -5" />
         <path class="trace-pulse trace-pulse--6" d="M -5 54 L 30 54 L 36 58 L 60 58 L 66 54 L 105 54" />
       </svg>
     </div>
@@ -77,6 +75,7 @@ const {
         z-index: -1;
         overflow: hidden;
         pointer-events: none;
+        contain: layout style paint;
         background: radial-gradient(ellipse 90% 70% at 50% 0%, var(--bg-elevated), var(--bg) 70%);
         /* Keep the traces lively in the side margins, but fade them out
            completely behind the readable content column (same width as
@@ -121,18 +120,16 @@ const {
       .trace-pulse {
         fill: none;
         stroke: var(--accent);
-        stroke-width: 1.6;
+        stroke-width: 1.8;
         stroke-linecap: round;
         vector-effect: non-scaling-stroke;
-        opacity: 0.85;
-        filter: drop-shadow(0 0 3px var(--accent));
+        opacity: 0.9;
       }
 
       .trace-pulse--2,
       .trace-pulse--4,
       .trace-pulse--6 {
         stroke: #4f8a8f;
-        filter: drop-shadow(0 0 3px #4f8a8f);
       }
 
       .trace-pulse--1 {
@@ -147,22 +144,10 @@ const {
         animation-delay: -3.5s;
       }
 
-      .trace-pulse--3 {
-        stroke-dasharray: 14 360;
-        animation: trace-flow-c 8s linear infinite;
-        animation-delay: -5s;
-      }
-
       .trace-pulse--4 {
         stroke-dasharray: 9 240;
         animation: trace-flow-d 6s linear infinite;
         animation-delay: -2s;
-      }
-
-      .trace-pulse--5 {
-        stroke-dasharray: 9 240;
-        animation: trace-flow-d 6.5s linear infinite;
-        animation-delay: -4s;
       }
 
       .trace-pulse--6 {
@@ -180,12 +165,6 @@ const {
       @keyframes trace-flow-b {
         to {
           stroke-dashoffset: -350;
-        }
-      }
-
-      @keyframes trace-flow-c {
-        to {
-          stroke-dashoffset: -374;
         }
       }
 
