@@ -113,6 +113,17 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
       if (pre.dataset.copyReady === 'true') return;
       pre.dataset.copyReady = 'true';
 
+      // Wrap in a non-scrolling container so the copy button and language
+      // label stay pinned to the card, regardless of how far the user has
+      // scrolled the (horizontally scrollable) <pre> underneath them.
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block';
+      const lang = pre.getAttribute('data-language');
+      if (lang) wrapper.setAttribute('data-language', lang);
+
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'code-copy';
@@ -142,7 +153,7 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
         }, 1800);
       });
 
-      pre.appendChild(button);
+      wrapper.appendChild(button);
     });
   }
 
@@ -228,25 +239,35 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     padding-left: 1.3em;
   }
 
-  .prose :global(pre.astro-code) {
+  .prose :global(.code-block) {
     position: relative;
     margin: 1.85em 0;
-    padding: 2.15rem 1.3rem 1.15rem;
     border-radius: 10px;
     border: 1px solid var(--line);
-    background-color: var(--bg-elevated) !important;
+    background-color: var(--bg-elevated);
     box-shadow:
       0 1px 0 rgba(255, 255, 255, 0.03) inset,
       0 10px 24px rgba(0, 0, 0, 0.28);
+    overflow: hidden;
+  }
+
+  .prose :global(.code-block pre.astro-code) {
+    margin: 0;
+    padding: 2.15rem 1.3rem 1.15rem;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent !important;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
 
-  .prose :global(pre.astro-code)::before {
+  .prose :global(.code-block)::before {
     content: attr(data-language);
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
     padding: 0.5rem 1.3rem 0.35rem;
     font-family: var(--font-display), system-ui, sans-serif;
     font-size: 0.66rem;
@@ -280,10 +301,11 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
     border-radius: 999px;
   }
 
-  .prose :global(.code-copy) {
+  .prose :global(.code-block .code-copy) {
     position: absolute;
     top: 0.45rem;
     right: 0.6rem;
+    z-index: 2;
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
@@ -307,8 +329,8 @@ const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long
       color 0.15s ease;
   }
 
-  .prose :global(pre.astro-code:hover .code-copy),
-  .prose :global(pre.astro-code:focus-within .code-copy),
+  .prose :global(.code-block:hover .code-copy),
+  .prose :global(.code-block:focus-within .code-copy),
   .prose :global(.code-copy:focus-visible) {
     opacity: 1;
     transform: translateY(0);
