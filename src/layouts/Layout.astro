@@ -154,19 +154,22 @@ const {
         z-index: 1;
       }
 
-      /* A soft, translucent panel behind the readable content column —
-         a visual separator between the text and the animated background.
-         It lets a hint of the ambient background through (color-mix keeps
-         it partly see-through) while the blur keeps anything behind it
-         soft enough to never compete with the text on top. */
+      /* A soft, translucent "glass" panel behind the readable content
+        column — a visual separator between the text and the animated
+        background, not a solid wall over it. A light color-mix tint plus
+        a gentle blur lets the traces and pulses read through clearly
+        while still knocking back their contrast enough for body text to
+        stay easily readable on top. */
       main::before {
         content: '';
         position: absolute;
         inset: 0 max(0px, calc(50% - var(--content-width) / 2));
         z-index: -1;
-        background: color-mix(in srgb, var(--bg) 72%, transparent);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        background: color-mix(in srgb, var(--bg) 38%, transparent);
+        backdrop-filter: blur(6px) saturate(140%);
+        -webkit-backdrop-filter: blur(6px) saturate(140%);
+        border-left: 1px solid var(--line);
+        border-right: 1px solid var(--line);
       }
 
       .site-header {
