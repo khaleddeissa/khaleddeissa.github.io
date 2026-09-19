@@ -283,7 +283,7 @@ jobs:
           comment-on-pr: true
 ```
 
-The project is currently at **v0.1.3**, its latest stable release, with v0.1.0 and v0.1.1 as earlier tags along the way. The repository's `examples/` directory has complete starting points for a basic Terraform setup, a production service, a RAG application, the Python API, the GitHub Action, Docker, an MCP client, human-approval gating, and the `explain`/`fix` workflow.
+The project is currently at **v0.1.3**, its latest stable release, with v0.1.0, v0.1.1 and v0.1.2 as earlier tags along the way. The repository's `examples/` directory has complete starting points for a basic Terraform setup, a production service, a RAG application, the Python API, the GitHub Action, Docker, an MCP client, human-approval gating, and the `explain`/`fix` workflow.
 
 ## What it deliberately doesn't do
 
