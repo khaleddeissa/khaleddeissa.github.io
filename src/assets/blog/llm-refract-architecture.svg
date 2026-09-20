@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="730" viewBox="0 0 800 730" role="img" aria-labelledby="title desc">
+<title id="title">llm-refract · Execution architecture</title><desc id="desc">SDK snapshots feed a portable file for offline tools or the Rust API and collector for validated, redacted SQLite persistence. React and MCP use the API.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#9ddfc5"/></marker></defs>
+<rect width="800" height="730" rx="16" fill="#0e1416"/>
+<g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+<text x="400" y="40" font-size="23" fill="#e7edef" font-weight="600">llm-refract · Execution architecture</text>
+<text x="400" y="69" font-size="16" fill="#aabcc2" font-weight="400">Capture once; inspect the same evidence across tools.</text>
+<rect x="215" y="94" width="370" height="78" rx="10" fill="#192328" stroke="#3b5058"/><text x="400.0" y="123" font-size="18" fill="#e7edef" font-weight="600">Python / TypeScript SDKs</text><text x="400.0" y="148" font-size="16" fill="#aabcc2" font-weight="400">Capture application events</text>
+<path d="M400 172V198" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="215" y="200" width="370" height="78" rx="10" fill="#192328" stroke="#9ddfc5"/><text x="400.0" y="229" font-size="18" fill="#e7edef" font-weight="600">Canonical execution snapshot</text><text x="400.0" y="254" font-size="16" fill="#aabcc2" font-weight="400">Shared model and JSON schemas</text>
+<path d="M300 278V305H190V332" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M500 278V305H610V332" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="334" width="300" height="80" rx="10" fill="#192328" stroke="#9ddfc5"/><text x="190.0" y="363" font-size="18" fill="#e7edef" font-weight="600">Portable .rfr</text><text x="190.0" y="388" font-size="16" fill="#aabcc2" font-weight="400">Readable, checksummed text</text>
+<rect x="460" y="334" width="300" height="80" rx="10" fill="#192328" stroke="#9ddfc5"/><text x="610.0" y="363" font-size="18" fill="#e7edef" font-weight="600">Rust API + collector</text><text x="610.0" y="388" font-size="16" fill="#aabcc2" font-weight="400">Validate and redact snapshots</text>
+<path d="M190 414V458" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M610 414V458" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="460" width="300" height="80" rx="10" fill="#192328" stroke="#3b5058"/><text x="190.0" y="489" font-size="18" fill="#e7edef" font-weight="600">Rust CLI / libraries</text><text x="190.0" y="514" font-size="16" fill="#aabcc2" font-weight="400">Offline execution operations</text>
+<rect x="460" y="460" width="300" height="80" rx="10" fill="#192328" stroke="#3b5058"/><text x="610.0" y="489" font-size="18" fill="#e7edef" font-weight="600">SQLite / SQLx</text><text x="610.0" y="514" font-size="16" fill="#aabcc2" font-weight="400">Persist immutable snapshots</text>
+<path d="M190 540V574" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="40" y="576" width="300" height="96" rx="10" fill="#192328" stroke="#3b5058"/><text x="190.0" y="605" font-size="18" fill="#e7edef" font-weight="600">Inspect · replay · fork · diff</text><text x="190.0" y="630" font-size="16" fill="#aabcc2" font-weight="400">Captured outputs / prefix forks</text><text x="190.0" y="653" font-size="16" fill="#aabcc2" font-weight="400">Compare recorded semantics</text>
+<rect x="460" y="590" width="300" height="82" rx="10" fill="#192328" stroke="#3b5058"/><text x="610.0" y="619" font-size="18" fill="#e7edef" font-weight="600">React viewer / MCP</text><text x="610.0" y="644" font-size="16" fill="#aabcc2" font-weight="400">Read and operate through API</text>
+<path d="M760 631H779V374H762" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="400" y="710" font-size="16" fill="#aabcc2" font-weight="400">Offline files need no server. Browser and MCP share the REST API.</text>
+</g></svg>

@@ -6,6 +6,12 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    title: "llm-refract",
+    description:
+      "An open execution layer for AI systems. Records model calls, tools, retrieval, decisions, state changes, checkpoints, and failures in portable .rfr files. Python and TypeScript SDKs connect to a Rust engine for inspection, recorded replay, prefix forks, and execution comparison across the CLI, browser, MCP, and GitHub regression workflows.",
+    url: "https://github.com/khaleddeissa/llm-refract",
+  },
+  {
     title: "infra-contract",
     description:
       "Version-controlled infrastructure rules for people, CI, and AI agents. Evaluates Terraform/OpenTofu plans against a small, reviewable YAML contract covering security, architecture, reliability, and destructive-change risk, so humans and AI agents get the same answer before a change is merged or deployed. Ships as a Python package, a GitHub Action, a Docker image, and an MCP server for agent tooling.",

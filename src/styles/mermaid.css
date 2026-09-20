@@ -1,0 +1,47 @@
+.mermaid-panel { margin: 2rem 0; border: 1px solid var(--line); border-radius: 10px; background: #141c1f; overflow: hidden; }
+.mermaid-stage { position: relative; height: 360px; }
+.mermaid-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #141c1f;
+  color: var(--text);
+}
+.mermaid-fullscreen::backdrop { background: rgba(6, 9, 10, 0.92); }
+.mermaid-fullscreen .mermaid-stage { height: 100%; }
+.mermaid-fullscreen .mermaid-tools { top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+.mermaid-fullscreen .mermaid-navigation { bottom: max(12px, env(safe-area-inset-bottom)); right: max(12px, env(safe-area-inset-right)); }
+.mermaid-fullscreen :is(button, .mermaid-viewport):focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.mermaid-viewport { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: none; }
+.mermaid-viewport:active { cursor: grabbing; }
+.mermaid-viewport > svg { position: absolute; top: 0; left: 0; display: block; transform-origin: 0 0; user-select: none; }
+.mermaid-tools { position: absolute; top: 12px; right: 12px; display: flex; gap: 4px; }
+.mermaid-navigation { position: absolute; bottom: 12px; right: 12px; display: grid; grid-template-columns: repeat(3, 36px); grid-template-rows: repeat(3, 36px); gap: 4px; }
+.mermaid-control { display: grid; place-items: center; width: 36px; height: 36px; padding: 8px; color: #c6d3d9; background: #202b32; border: 1px solid #43515b; border-radius: 6px; box-shadow: 0 1px 3px #0003; cursor: pointer; }
+.mermaid-control:hover { background: #34444e; color: #fff; border-color: #9ddfc5; }
+.mermaid-control:active { background: #40555f; }
+.mermaid-control svg { display: block; width: 18px; height: 18px; pointer-events: none; }
+.mermaid-up { grid-area: 1 / 2; }
+.mermaid-plus { grid-area: 1 / 3; }
+.mermaid-left { grid-area: 2 / 1; }
+.mermaid-reset { grid-area: 2 / 2; }
+.mermaid-right { grid-area: 2 / 3; }
+.mermaid-down { grid-area: 3 / 2; }
+.mermaid-minus { grid-area: 3 / 3; }
+.mermaid-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.65rem; border-top: 1px solid var(--line); padding: 0.8rem 1rem; font-size: 0.78rem; color: var(--text-muted); }
+.mermaid-panel details { padding: 0.8rem 1rem; border-top: 1px solid var(--line); }
+.mermaid-panel summary { cursor: pointer; font-size: 0.85rem; color: var(--text-muted); }
+.prose pre.mermaid, .mermaid-panel pre { overflow-x: auto; font-size: 0.8rem; white-space: pre; }
+.mermaid-panel :is(button, a, summary, .mermaid-viewport):focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.mermaid-status { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  .mermaid-stage { height: 340px; }
+  .mermaid-navigation { grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(3, 44px); }
+  .mermaid-control { width: 44px; height: 44px; }
+}

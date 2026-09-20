@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="585" viewBox="0 0 800 585" role="img" aria-labelledby="title desc">
+<title id="title">Execution snapshots and prefix forks</title><desc id="desc">Events are ordered with parents before children. Forking before event three retains events one and two in a new run with lineage; it does not resume application code.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#9ddfc5"/></marker></defs>
+<rect width="800" height="585" rx="16" fill="#0e1416"/>
+<g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+<text x="400" y="40" font-size="23" fill="#e7edef" font-weight="600">Execution snapshots and prefix forks</text>
+<text x="400" y="70" font-size="16" fill="#aabcc2" font-weight="400">Illustrative run: parents always precede their children.</text>
+<text x="119" y="111" font-size="17" fill="#9ddfc5" font-weight="600">Original run A</text>
+<rect x="40" y="134" width="210" height="100" rx="10" fill="#192328" stroke="#3b5058"/><text x="145.0" y="163" font-size="18" fill="#e7edef" font-weight="600">evt_1 · Retrieval</text><text x="145.0" y="188" font-size="16" fill="#aabcc2" font-weight="400">Read policy</text><text x="145.0" y="211" font-size="16" fill="#aabcc2" font-weight="400">No parent</text>
+<rect x="295" y="134" width="210" height="100" rx="10" fill="#192328" stroke="#3b5058"/><text x="400.0" y="163" font-size="18" fill="#e7edef" font-weight="600">evt_2 · Decision</text><text x="400.0" y="188" font-size="16" fill="#aabcc2" font-weight="400">Select policy</text><text x="400.0" y="211" font-size="16" fill="#aabcc2" font-weight="400">Parent: evt_1</text>
+<rect x="550" y="134" width="210" height="100" rx="10" fill="#192328" stroke="#3b5058"/><text x="655.0" y="163" font-size="18" fill="#e7edef" font-weight="600">evt_3 · Generation</text><text x="655.0" y="188" font-size="16" fill="#aabcc2" font-weight="400">Draft reply</text><text x="655.0" y="211" font-size="16" fill="#aabcc2" font-weight="400">Parent: evt_2</text>
+<path d="M250 184H292" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M505 184H547" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="400" y="267" font-size="16" fill="#aabcc2" font-weight="400">Event order and parent relationships are part of the snapshot.</text>
+<path d="M145 234V315H400V345" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="530" y="320" font-size="17" fill="#9ddfc5" font-weight="600">Fork before evt_3</text>
+<rect x="40" y="348" width="720" height="178" rx="12" fill="#122322" stroke="#9ddfc5"/>
+<text x="400" y="380" font-size="18" fill="#9ddfc5" font-weight="600">New run B · lineage points back to run A</text>
+<rect x="65" y="401" width="265" height="98" rx="10" fill="#192328" stroke="#3b5058"/><text x="197.5" y="430" font-size="18" fill="#e7edef" font-weight="600">evt_1 · Retrieval</text><text x="197.5" y="455" font-size="16" fill="#aabcc2" font-weight="400">Preserved event ID</text><text x="197.5" y="478" font-size="16" fill="#aabcc2" font-weight="400">Captured output retained</text>
+<rect x="370" y="401" width="265" height="98" rx="10" fill="#192328" stroke="#3b5058"/><text x="502.5" y="430" font-size="18" fill="#e7edef" font-weight="600">evt_2 · Decision</text><text x="502.5" y="455" font-size="16" fill="#aabcc2" font-weight="400">Preserved event ID</text><text x="502.5" y="478" font-size="16" fill="#aabcc2" font-weight="400">Parent: evt_1</text>
+<path d="M330 450H367" fill="none" stroke="#9ddfc5" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="400" y="558" font-size="17" fill="#aabcc2" font-weight="400">The prefix ends here. Forking does not resume application execution.</text>
+</g></svg>
